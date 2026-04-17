@@ -32,12 +32,28 @@ h1 {
     margin-bottom: 40px;
 }
 
+/* GRID */
 .grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
+    transition: all 0.5s ease;
 }
 
+.grid.active {
+    grid-template-columns: 250px 1fr;
+}
+
+/* LEFT MENU */
+.sidebar {
+    display: none;
+}
+
+.grid.active .sidebar {
+    display: block;
+}
+
+/* CARDS */
 .card {
     background: rgba(30, 41, 59, 0.7);
     backdrop-filter: blur(10px);
@@ -47,19 +63,6 @@ h1 {
     cursor: pointer;
     position: relative;
     overflow: hidden;
-}
-
-.card::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(120deg, transparent, rgba(59,130,246,0.3), transparent);
-    opacity: 0;
-    transition: 0.3s;
-}
-
-.card:hover::before {
-    opacity: 1;
 }
 
 .card:hover {
@@ -76,13 +79,45 @@ h1 {
     font-size: 24px;
 }
 
+/* PROJECT VIEW */
+.project-view {
+    display: none;
+}
+
+.project-view.active {
+    display: block;
+}
+
+.project-item {
+    background: #1e293b;
+    padding: 20px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    transition: 0.3s;
+}
+
+.project-item:hover {
+    background: #334155;
+}
+
+.project-item a {
+    color: #3b82f6;
+    text-decoration: none;
+}
+
+.back-btn {
+    margin-bottom: 20px;
+    cursor: pointer;
+    color: #3b82f6;
+}
+
 .footer {
     margin-top: 60px;
     text-align: center;
     color: #64748b;
 }
 
-/* floating particles */
+/* particles */
 .particle {
     position: fixed;
     width: 3px;
@@ -106,30 +141,54 @@ h1 {
     <h1>Sebastian</h1>
     <p class="subtitle">Data Analyst | Data Systems | Automation</p>
 
-    <div class="grid">
+    <div class="grid" id="grid">
 
-        <div class="card big-card">
-            Turning raw data into structured, reliable systems
+        <!-- LEFT SIDEBAR -->
+        <div class="sidebar">
+            <div class="back-btn" onclick="goBack()">← Back</div>
         </div>
 
-        <div class="card">
-            <h3>SQL</h3>
-            <p>Data pipelines, transformations, analytics</p>
-        </div>
+        <!-- MAIN CONTENT -->
+        <div id="mainContent">
 
-        <div class="card">
-            <h3>ML & Python</h3>
-            <p>Rule-based systems, classification, automation</p>
-        </div>
+            <div class="grid-inner" id="cards">
 
-        <div class="card">
-            <h3>Power BI</h3>
-            <p>Dashboards, visualization, insights</p>
-        </div>
+                <div class="card big-card">
+                    Turning raw data into structured, reliable systems
+                </div>
 
-        <div class="card">
-            <h3>Other Projects</h3>
-            <p>Experiments and advanced solutions</p>
+                <div class="card">
+                    <h3>SQL</h3>
+                </div>
+
+                <div class="card" onclick="openML()">
+                    <h3>ML & Python</h3>
+                </div>
+
+                <div class="card">
+                    <h3>Power BI</h3>
+                </div>
+
+                <div class="card">
+                    <h3>Other Projects</h3>
+                </div>
+
+            </div>
+
+            <!-- PROJECT VIEW -->
+            <div class="project-view" id="mlView">
+                <h2>ML & Python Projects</h2>
+
+                <div class="project-item">
+                    <h3>Subflash Classification Engine</h3>
+                    <p>Rule-based classification system with data quality layer</p>
+                    <a href="https://github.com/ogrodniks/ec_checks" target="_blank">
+                        View on GitHub →
+                    </a>
+                </div>
+
+            </div>
+
         </div>
 
     </div>
@@ -141,6 +200,19 @@ h1 {
 </div>
 
 <script>
+function openML() {
+    document.getElementById("grid").classList.add("active");
+    document.getElementById("cards").style.display = "none";
+    document.getElementById("mlView").classList.add("active");
+}
+
+function goBack() {
+    document.getElementById("grid").classList.remove("active");
+    document.getElementById("cards").style.display = "grid";
+    document.getElementById("mlView").classList.remove("active");
+}
+
+// particles
 for (let i = 0; i < 40; i++) {
     const p = document.createElement("div");
     p.className = "particle";
