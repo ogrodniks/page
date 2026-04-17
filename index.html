@@ -9,19 +9,27 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: radial-gradient(circle at top, #0f172a, #020617);
+    background: #020617;
     color: #e2e8f0;
+    overflow: hidden;
 }
 
-/* CONTAINER */
-.container {
-    max-width: 1200px;
-    margin: auto;
+/* LAYOUT */
+.main-layout {
+    display: grid;
+    grid-template-columns: 25% 75%;
+    height: 100vh;
+}
+
+/* LEFT PANEL */
+.left-panel {
+    background: #020617;
     padding: 40px 20px;
+    overflow-y: auto;
 }
 
 h1 {
-    font-size: 52px;
+    font-size: 40px;
     background: linear-gradient(90deg, #3b82f6, #06b6d4);
     -webkit-background-clip: text;
     color: transparent;
@@ -29,63 +37,69 @@ h1 {
 
 .subtitle {
     color: #94a3b8;
-    margin-bottom: 40px;
-}
-
-/* MAIN LAYOUT */
-.main-layout {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
-    align-items: center;
 }
 
 /* GRID */
 .grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
+    gap: 15px;
+    margin-top: 30px;
 }
 
 /* CARDS */
 .card {
     background: rgba(30, 41, 59, 0.7);
-    padding: 25px;
+    padding: 20px;
     border-radius: 12px;
     cursor: pointer;
     transition: 0.3s;
 }
 
-/* HOVER EFFECT */
 .card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 20px rgba(59,130,246,0.4);
+    transform: translateX(5px);
+    box-shadow: 0 0 15px rgba(59,130,246,0.3);
 }
 
 .big-card {
     background: linear-gradient(135deg, #3b82f6, #06b6d4);
     color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
 }
 
-/* IMAGE */
-.main-image img {
-    width: 100%;
-    border-radius: 16px;
-    transition: 0.3s;
+/* RIGHT IMAGE */
+.right-image {
+    position: relative;
+    background: url("assets/lacets.png") center/cover no-repeat;
+    transition: 0.6s ease;
 }
 
-/* HOVER NA OBRAZ */
-.main-image img:hover {
-    transform: scale(1.03);
+/* OVERLAY */
+.right-image::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.3);
+}
+
+/* FADE EFFECT */
+.fade {
+    opacity: 0;
+}
+
+.fade-in {
+    opacity: 1;
 }
 
 /* PROJECT VIEW */
 .project-view {
+    position: absolute;
+    top: 0;
+    left: 25%;
+    width: 75%;
+    height: 100%;
+    background: #020617;
+    padding: 40px;
     display: none;
+    overflow-y: auto;
 }
 
 .project-view.active {
@@ -109,89 +123,84 @@ h1 {
     cursor: pointer;
     color: #3b82f6;
 }
-
-/* FOOTER */
-.footer {
-    margin-top: 60px;
-    text-align: center;
-    color: #64748b;
-}
 </style>
 </head>
 
 <body>
 
-<div class="container">
+<div class="main-layout">
 
-    <h1>Sebastian</h1>
-    <p class="subtitle">Data Analyst | Data Systems | Automation</p>
+    <!-- LEFT -->
+    <div class="left-panel">
 
-    <!-- MAIN VIEW -->
-    <div id="mainView" class="main-layout">
+        <h1>Sebastian</h1>
+        <p class="subtitle">Data Analyst | Data Systems | Automation</p>
 
-        <!-- LEWA STRONA -->
         <div class="grid">
 
             <div class="card big-card">
                 Turning raw data into structured, reliable systems
             </div>
 
-            <div class="card">
+            <div class="card" onclick="changeImage('assets/sql.png')">
                 <h3>SQL</h3>
             </div>
 
-            <div class="card" onclick="openML()">
+            <div class="card" onclick="openML(); changeImage('assets/lacets.png')">
                 <h3>ML & Python</h3>
             </div>
 
-            <div class="card">
+            <div class="card" onclick="changeImage('assets/powerbi.png')">
                 <h3>Power BI</h3>
             </div>
 
-            <div class="card">
+            <div class="card" onclick="changeImage('assets/other.png')">
                 <h3>Other Projects</h3>
             </div>
 
         </div>
 
-        <!-- PRAWA STRONA -->
-        <div class="main-image">
-            <img src="assets/lacets.png" alt="Portfolio Image">
-        </div>
-
     </div>
 
-    <!-- ML VIEW -->
-    <div id="mlView" class="project-view">
+    <!-- RIGHT IMAGE -->
+    <div class="right-image" id="imageBox"></div>
 
-        <div class="back-btn" onclick="goBack()">← Back</div>
+</div>
 
-        <h2>ML & Python Projects</h2>
+<!-- ML VIEW -->
+<div id="mlView" class="project-view">
 
-        <div class="project-item">
-            <h3>Subflash Classification Engine</h3>
-            <p>Rule-based classification system with data quality layer</p>
-            <a href="https://github.com/ogrodniks/ec_checks" target="_blank">
-                View on GitHub →
-            </a>
-        </div>
+    <div class="back-btn" onclick="goBack()">← Back</div>
 
-    </div>
+    <h2>ML & Python Projects</h2>
 
-    <div class="footer">
-        © 2026 Sebastian
+    <div class="project-item">
+        <h3>Subflash Classification Engine</h3>
+        <p>Rule-based classification system with data quality layer</p>
+        <a href="https://github.com/ogrodniks/ec_checks" target="_blank">
+            View on GitHub →
+        </a>
     </div>
 
 </div>
 
 <script>
+function changeImage(path) {
+    const el = document.getElementById("imageBox");
+
+    el.classList.add("fade");
+
+    setTimeout(() => {
+        el.style.background = `url(${path}) center/cover no-repeat`;
+        el.classList.remove("fade");
+    }, 300);
+}
+
 function openML() {
-    document.getElementById("mainView").style.display = "none";
     document.getElementById("mlView").classList.add("active");
 }
 
 function goBack() {
-    document.getElementById("mainView").style.display = "grid";
     document.getElementById("mlView").classList.remove("active");
 }
 </script>
