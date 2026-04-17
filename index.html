@@ -9,8 +9,9 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: #0f172a;
+    background: radial-gradient(circle at top, #0f172a, #020617);
     color: #e2e8f0;
+    overflow-x: hidden;
 }
 
 .container {
@@ -20,8 +21,10 @@ body {
 }
 
 h1 {
-    font-size: 48px;
-    margin-bottom: 10px;
+    font-size: 52px;
+    background: linear-gradient(90deg, #3b82f6, #06b6d4);
+    -webkit-background-clip: text;
+    color: transparent;
 }
 
 .subtitle {
@@ -36,38 +39,62 @@ h1 {
 }
 
 .card {
-    background: #1e293b;
+    background: rgba(30, 41, 59, 0.7);
+    backdrop-filter: blur(10px);
     padding: 30px;
     border-radius: 12px;
     transition: 0.3s;
     cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, transparent, rgba(59,130,246,0.3), transparent);
+    opacity: 0;
+    transition: 0.3s;
+}
+
+.card:hover::before {
+    opacity: 1;
 }
 
 .card:hover {
-    transform: translateY(-5px);
-    background: #334155;
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(59,130,246,0.4);
 }
 
 .big-card {
-    background: #3b82f6;
+    background: linear-gradient(135deg, #3b82f6, #06b6d4);
     color: white;
     display: flex;
-    flex-direction: column;
+    align-items: center;
     justify-content: center;
-}
-
-.big-card h2 {
-    font-size: 28px;
-}
-
-.small-card h3 {
-    margin: 0;
+    font-size: 24px;
 }
 
 .footer {
     margin-top: 60px;
     text-align: center;
     color: #64748b;
+}
+
+/* floating particles */
+.particle {
+    position: fixed;
+    width: 3px;
+    height: 3px;
+    background: #3b82f6;
+    opacity: 0.5;
+    animation: float 10s linear infinite;
+}
+
+@keyframes float {
+    from { transform: translateY(100vh); }
+    to { transform: translateY(-10vh); }
 }
 </style>
 </head>
@@ -77,32 +104,32 @@ h1 {
 <div class="container">
 
     <h1>Sebastian</h1>
-    <p class="subtitle">Data Analyst with engineering mindset</p>
+    <p class="subtitle">Data Analyst | Data Systems | Automation</p>
 
     <div class="grid">
 
         <div class="card big-card">
-            <h2>I build data systems that turn messy data into reliable insights.</h2>
+            Turning raw data into structured, reliable systems
         </div>
 
-        <div class="card small-card">
+        <div class="card">
             <h3>SQL</h3>
-            <p>Data extraction, transformations, pipelines</p>
+            <p>Data pipelines, transformations, analytics</p>
         </div>
 
-        <div class="card small-card">
+        <div class="card">
             <h3>ML & Python</h3>
-            <p>Classification, automation, data processing</p>
+            <p>Rule-based systems, classification, automation</p>
         </div>
 
-        <div class="card small-card">
+        <div class="card">
             <h3>Power BI</h3>
-            <p>Dashboards, reporting, business insights</p>
+            <p>Dashboards, visualization, insights</p>
         </div>
 
-        <div class="card small-card">
+        <div class="card">
             <h3>Other Projects</h3>
-            <p>Experiments, tools, case studies</p>
+            <p>Experiments and advanced solutions</p>
         </div>
 
     </div>
@@ -112,6 +139,16 @@ h1 {
     </div>
 
 </div>
+
+<script>
+for (let i = 0; i < 40; i++) {
+    const p = document.createElement("div");
+    p.className = "particle";
+    p.style.left = Math.random() * 100 + "vw";
+    p.style.animationDuration = (5 + Math.random() * 10) + "s";
+    document.body.appendChild(p);
+}
+</script>
 
 </body>
 </html>
