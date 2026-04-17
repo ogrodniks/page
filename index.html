@@ -11,11 +11,11 @@ body {
     font-family: Arial, sans-serif;
     background: radial-gradient(circle at top, #0f172a, #020617);
     color: #e2e8f0;
-    overflow-x: hidden;
 }
 
+/* CONTAINER */
 .container {
-    max-width: 1100px;
+    max-width: 1200px;
     margin: auto;
     padding: 40px 20px;
 }
@@ -32,39 +32,31 @@ h1 {
     margin-bottom: 40px;
 }
 
+/* MAIN LAYOUT */
+.main-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+}
+
 /* GRID */
 .grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
-    transition: all 0.5s ease;
-}
-
-.grid.active {
-    grid-template-columns: 250px 1fr;
-}
-
-/* LEFT MENU */
-.sidebar {
-    display: none;
-}
-
-.grid.active .sidebar {
-    display: block;
 }
 
 /* CARDS */
 .card {
     background: rgba(30, 41, 59, 0.7);
-    backdrop-filter: blur(10px);
-    padding: 30px;
+    padding: 25px;
     border-radius: 12px;
-    transition: 0.3s;
     cursor: pointer;
-    position: relative;
-    overflow: hidden;
+    transition: 0.3s;
 }
 
+/* HOVER EFFECT */
 .card:hover {
     transform: scale(1.05);
     box-shadow: 0 0 20px rgba(59,130,246,0.4);
@@ -76,7 +68,19 @@ h1 {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 24px;
+    font-size: 20px;
+}
+
+/* IMAGE */
+.main-image img {
+    width: 100%;
+    border-radius: 16px;
+    transition: 0.3s;
+}
+
+/* HOVER NA OBRAZ */
+.main-image img:hover {
+    transform: scale(1.03);
 }
 
 /* PROJECT VIEW */
@@ -93,11 +97,6 @@ h1 {
     padding: 20px;
     margin-bottom: 15px;
     border-radius: 10px;
-    transition: 0.3s;
-}
-
-.project-item:hover {
-    background: #334155;
 }
 
 .project-item a {
@@ -111,25 +110,11 @@ h1 {
     color: #3b82f6;
 }
 
+/* FOOTER */
 .footer {
     margin-top: 60px;
     text-align: center;
     color: #64748b;
-}
-
-/* particles */
-.particle {
-    position: fixed;
-    width: 3px;
-    height: 3px;
-    background: #3b82f6;
-    opacity: 0.5;
-    animation: float 10s linear infinite;
-}
-
-@keyframes float {
-    from { transform: translateY(100vh); }
-    to { transform: translateY(-10vh); }
 }
 </style>
 </head>
@@ -141,54 +126,54 @@ h1 {
     <h1>Sebastian</h1>
     <p class="subtitle">Data Analyst | Data Systems | Automation</p>
 
-    <div class="grid" id="grid">
+    <!-- MAIN VIEW -->
+    <div id="mainView" class="main-layout">
 
-        <!-- LEFT SIDEBAR -->
-        <div class="sidebar">
-            <div class="back-btn" onclick="goBack()">← Back</div>
+        <!-- LEWA STRONA -->
+        <div class="grid">
+
+            <div class="card big-card">
+                Turning raw data into structured, reliable systems
+            </div>
+
+            <div class="card">
+                <h3>SQL</h3>
+            </div>
+
+            <div class="card" onclick="openML()">
+                <h3>ML & Python</h3>
+            </div>
+
+            <div class="card">
+                <h3>Power BI</h3>
+            </div>
+
+            <div class="card">
+                <h3>Other Projects</h3>
+            </div>
+
         </div>
 
-        <!-- MAIN CONTENT -->
-        <div id="mainContent">
+        <!-- PRAWA STRONA -->
+        <div class="main-image">
+            <img src="page/assets/lacets.png" alt="Portfolio Image">
+        </div>
 
-            <div class="grid-inner" id="cards">
+    </div>
 
-                <div class="card big-card">
-                    Turning raw data into structured, reliable systems
-                </div>
+    <!-- ML VIEW -->
+    <div id="mlView" class="project-view">
 
-                <div class="card">
-                    <h3>SQL</h3>
-                </div>
+        <div class="back-btn" onclick="goBack()">← Back</div>
 
-                <div class="card" onclick="openML()">
-                    <h3>ML & Python</h3>
-                </div>
+        <h2>ML & Python Projects</h2>
 
-                <div class="card">
-                    <h3>Power BI</h3>
-                </div>
-
-                <div class="card">
-                    <h3>Other Projects</h3>
-                </div>
-
-            </div>
-
-            <!-- PROJECT VIEW -->
-            <div class="project-view" id="mlView">
-                <h2>ML & Python Projects</h2>
-
-                <div class="project-item">
-                    <h3>Subflash Classification Engine</h3>
-                    <p>Rule-based classification system with data quality layer</p>
-                    <a href="https://github.com/ogrodniks/ec_checks" target="_blank">
-                        View on GitHub →
-                    </a>
-                </div>
-
-            </div>
-
+        <div class="project-item">
+            <h3>Subflash Classification Engine</h3>
+            <p>Rule-based classification system with data quality layer</p>
+            <a href="https://github.com/ogrodniks/ec_checks" target="_blank">
+                View on GitHub →
+            </a>
         </div>
 
     </div>
@@ -201,24 +186,13 @@ h1 {
 
 <script>
 function openML() {
-    document.getElementById("grid").classList.add("active");
-    document.getElementById("cards").style.display = "none";
+    document.getElementById("mainView").style.display = "none";
     document.getElementById("mlView").classList.add("active");
 }
 
 function goBack() {
-    document.getElementById("grid").classList.remove("active");
-    document.getElementById("cards").style.display = "grid";
+    document.getElementById("mainView").style.display = "grid";
     document.getElementById("mlView").classList.remove("active");
-}
-
-// particles
-for (let i = 0; i < 40; i++) {
-    const p = document.createElement("div");
-    p.className = "particle";
-    p.style.left = Math.random() * 100 + "vw";
-    p.style.animationDuration = (5 + Math.random() * 10) + "s";
-    document.body.appendChild(p);
 }
 </script>
 
