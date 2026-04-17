@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sebastian | Portfolio</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #0f172a;
+    color: #e2e8f0;
+}
+
+.container {
+    max-width: 1100px;
+    margin: auto;
+    padding: 40px 20px;
+}
+
+h1 {
+    font-size: 48px;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    color: #94a3b8;
+    margin-bottom: 40px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.card {
+    background: #1e293b;
+    padding: 30px;
+    border-radius: 12px;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    background: #334155;
+}
+
+.big-card {
+    background: #3b82f6;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.big-card h2 {
+    font-size: 28px;
+}
+
+.small-card h3 {
+    margin: 0;
+}
+
+.footer {
+    margin-top: 60px;
+    text-align: center;
+    color: #64748b;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Sebastian</h1>
+    <p class="subtitle">Data Analyst with engineering mindset</p>
+
+    <div class="grid">
+
+        <div class="card big-card">
+            <h2>I build data systems that turn messy data into reliable insights.</h2>
+        </div>
+
+        <div class="card small-card">
+            <h3>SQL</h3>
+            <p>Data extraction, transformations, pipelines</p>
+        </div>
+
+        <div class="card small-card">
+            <h3>ML & Python</h3>
+            <p>Classification, automation, data processing</p>
+        </div>
+
+        <div class="card small-card">
+            <h3>Power BI</h3>
+            <p>Dashboards, reporting, business insights</p>
+        </div>
+
+        <div class="card small-card">
+            <h3>Other Projects</h3>
+            <p>Experiments, tools, case studies</p>
+        </div>
+
+    </div>
+
+    <div class="footer">
+        © 2026 Sebastian
+    </div>
+
+</div>
+
+</body>
+</html>
